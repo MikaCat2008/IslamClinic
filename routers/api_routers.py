@@ -1,4 +1,4 @@
-import time, datetime as dt, collections as c, flask as f
+import datetime as dt, collections as c, flask as f
 
 from . import tools as t
 

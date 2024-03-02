@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input id="submit" type="button" value="Войти">
+                    <input id="save" type="button" value="Войти">
                 </div>
             </div>
         </div>
@@ -44,13 +44,13 @@
 {% endblock %}
 
 {% block script_block %}
-    <script src="static/js/login.js"></script>
+    <script src="static/js/auth.js"></script>
     <script>
-        let submitElement = document.querySelector("#submit");
+        let saveElement = document.querySelector("#save");
         let usernameElement = document.querySelector("#username");
         let passwordElement = document.querySelector("#password");
 
-        submitElement.onclick = () => login(
+        saveElement.onclick = () => login(
             usernameElement.value,
             passwordElement.value
         );

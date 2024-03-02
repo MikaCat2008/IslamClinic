@@ -102,7 +102,12 @@ input:hover {
 }
 
 .window-center {
-    margin: 150px auto 0px auto;
+    position: static;
+
+    left: 0px;
+    right: 0px;
+
+    margin: 200px auto 0px auto;
 }
 
 .window-right {

@@ -12,15 +12,17 @@ routers: list[tuple[str, str, t.Callable]] = []
 controller = None
 
 
+def check_data(username: str, password: str) -> bool:
+    return username == LOGIN_USERNAME and password == LOGIN_PASSWORD
+
+
 def is_authed() -> bool:
     cookies = f.request.cookies
         
     username = cookies.get("username")
     password = cookies.get("password")
 
-    return True
-
-    return username == LOGIN_USERNAME and password == LOGIN_PASSWORD
+    return check_data(username, password)
 
 
 def route(url: str, method: str = "GET", auth: bool = False) -> t.Callable:

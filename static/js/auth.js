@@ -1,5 +1,5 @@
 async function login(username, password) {
-    await api("login", {
+    await postData("/_login", {
         username: username,
         password: password
     }).then(response => {
