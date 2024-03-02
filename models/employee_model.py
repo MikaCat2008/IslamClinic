@@ -43,16 +43,28 @@ class EmployeeModel(Model):
     def create(
         cls, fullname: str, age: int, gender: bool, salary: int, job_category: int,
         job_title: int
-    ) -> None:
-        return cls.database.execute("""
+    ) -> 'EmployeeModel':
+        cls.emit("onCreate", {
+            "fullname": fullname, "age": age, "gender": gender, "salary": salary,
+            "job_category": job_category, "job_title": job_title
+        })
+
+        id = cls.database.execute("""
             INSERT INTO employees VALUES(NULL, ?, ?, ?, ?, ?, ?);
-        """, fullname, age, gender, salary, job_category, job_title)
+        """, fullname, age, gender, salary, job_category, job_title).lastrowid
+
+        return cls(id, fullname, age, gender, salary, job_category, job_title)
     
     @classmethod
     def get(
         cls, id: int = None, fullname: str = None, age: int = None, gender: bool = None, 
         salary: str = None, job_category: int = None, job_title: int = None
     ) -> None:
+        cls.emit("onGet", {
+            "id": id, "fullname": fullname, "age": age, "gender": gender, "salary": salary,
+            "job_category": job_category, "job_title": job_title
+        })
+        
         c = list(filter(None.__ne__, (id, fullname, age, gender, salary, job_category, job_title)))
 
         where = ""
@@ -88,8 +100,13 @@ class EmployeeModel(Model):
         cls, id: int, fullname: str, age: int, gender: bool, salary: int, job_category: int,
         job_title: int
     ) -> None:
+        cls.emit("onEdit", {
+            "id": id, "fullname": fullname, "age": age, "gender": gender, "salary": salary,
+            "job_category": job_category, "job_title": job_title
+        })
+
         cls.database.execute("""
-            UPDATE patients 
+            UPDATE employees 
             SET fullname = ?,
                 age = ?,
                 gender = ?,
@@ -99,8 +116,14 @@ class EmployeeModel(Model):
             WHERE id = ?;
         """, fullname, age, gender, salary, job_category, job_title, id)
 
+        return cls(id, fullname, age, gender, salary, job_category, job_title)
+
     @classmethod
     def delete(cls, id: int) -> None:
+        cls.emit("onDelete", {
+            "id": id
+        })
+        
         cls.database.execute("""
             DELETE FROM employees WHERE id = ?; 
         """, id)

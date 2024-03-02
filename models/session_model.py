@@ -33,15 +33,27 @@ class SessionModel(Model):
     def create(
         cls, patient_fullname: str, employee_fullname: str, datetime_timestamp: int
     ) -> None:
-        return cls.database.execute("""
+        cls.emit("onCreate", {
+            "patient_fullname": patient_fullname, "employee_fullname": employee_fullname,
+            "datetime_timestamp": datetime_timestamp
+        })
+
+        id = cls.database.execute("""
             INSERT INTO sessions VALUES(NULL, ?, ?, ?);
-        """, patient_fullname, employee_fullname, datetime_timestamp)
+        """, patient_fullname, employee_fullname, datetime_timestamp).lastrowid
+    
+        return cls(id, patient_fullname, employee_fullname, datetime_timestamp)
     
     @classmethod
     def get(
         cls, id: int = None, patient_fullname: str = None, employee_fullname: int = None, 
         datetime_timestamp: bool = None
     ) -> None:
+        cls.emit("onGet", {
+            "id": id, "patient_fullname": patient_fullname, "employee_fullname": employee_fullname,
+            "datetime_timestamp": datetime_timestamp
+        })
+         
         c = list(filter(None.__ne__, (id, patient_fullname, employee_fullname, datetime_timestamp)))
 
         where = ""
@@ -70,6 +82,11 @@ class SessionModel(Model):
     def edit(
         cls, id: int, patient_fullname: str, employee_fullname: str, datetime_timestamp: int
     ) -> None:
+        cls.emit("onEdit", {
+            "id": id, "patient_fullname": patient_fullname, "employee_fullname": employee_fullname,
+            "datetime_timestamp": datetime_timestamp
+        })
+
         cls.database.execute("""
             UPDATE sessions 
             SET patientFullname = ?,
@@ -78,8 +95,14 @@ class SessionModel(Model):
             WHERE id = ?;
         """, patient_fullname, employee_fullname, datetime_timestamp, id)
 
+        return cls(id, patient_fullname, employee_fullname, datetime_timestamp)
+
     @classmethod
     def delete(cls, id: int) -> None:
+        cls.emit("onDelete", {
+            "id": id
+        })
+
         cls.database.execute("""
             DELETE FROM sessions WHERE id = ?; 
         """, id)

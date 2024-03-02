@@ -203,8 +203,6 @@ def api() -> f.Response:
     method = json["method"]
     data = json["data"]
 
-    print(method, data)
-
     match method:
         case "createPatient":
             response = create_patient(data)

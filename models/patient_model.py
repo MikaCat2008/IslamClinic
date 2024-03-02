@@ -35,16 +35,28 @@ class PatientModel(Model):
     @classmethod
     def create(
         cls, fullname: str, age: int, gender: bool, family_doctor_fullname: str
-    ) -> None:
-        return cls.database.execute("""
+    ) -> 'PatientModel':
+        cls.emit("onCreate", {
+            "fullname": fullname, "age": age, "gender": gender, 
+            "family_doctor_fullname": family_doctor_fullname
+        })
+
+        id = cls.database.execute("""
             INSERT INTO patients VALUES(NULL, ?, ?, ?, ?);
-        """, fullname, age, gender, family_doctor_fullname)
+        """, fullname, age, gender, family_doctor_fullname).lastrowid
+
+        return cls(id, fullname, age, gender, family_doctor_fullname)
     
     @classmethod
     def get(
         cls, id: int = None, fullname: str = None, age: int = None, gender: bool = None, 
         family_doctor_fullname: str = None
-    ) -> None:
+    ) -> list['PatientModel']:
+        cls.emit("onGet", {
+            "id": id, "fullname": fullname, "age": age, "gender": gender,
+            "family_doctor_fullname": family_doctor_fullname
+        })
+
         c = list(filter(None.__ne__, (id, fullname, age, gender, family_doctor_fullname)))
 
         where = ""
@@ -74,7 +86,12 @@ class PatientModel(Model):
     @classmethod
     def edit(
         cls, id: int, fullname: str, age: int, gender: bool, family_doctor_fullname: str
-    ) -> None:
+    ) -> 'PatientModel':
+        cls.emit("onEdit", {
+            "id": id, "fullname": fullname, "age": age, "gender": gender, 
+            "family_doctor_fullname": family_doctor_fullname
+        })
+
         cls.database.execute("""
             UPDATE patients 
             SET fullname = ?,
@@ -84,8 +101,14 @@ class PatientModel(Model):
             WHERE id = ?;
         """, fullname, age, gender, family_doctor_fullname, id)
 
+        return cls(id, fullname, age, gender, family_doctor_fullname)
+
     @classmethod
     def delete(cls, id: int) -> None:
+        cls.emit("onDelete", {
+            "id": id
+        })
+        
         cls.database.execute("""
             DELETE FROM patients WHERE id = ?; 
         """, id)

@@ -40,6 +40,15 @@ async function createEmployee(fullname, age, gender, salary, jobCategory, jobTit
 
 
 async function getEmployees(id, fullname, age, gender, salary, jobCategory, jobTitle, then) {
+    if (Number(id) != id)
+        return showText("Поле с номером пациента должно быть числом", 2);
+
+    if (Number(age) != age)
+        return showText("Поле с возрастом должно быть числом", 2);
+
+    if (Number(salary) != salary)
+        return showText("Поле с окладом должно быть числом", 2);
+    
     startLoadingAnimation();
     
     return await api("getEmployees", {

@@ -29,6 +29,12 @@ async function createPatient(fullname, age, gender, familyDoctorFullname) {
 
 
 async function getPatients(id, fullname, age, gender, familyDoctorFullname, then) {
+    if (Number(id) != id)
+        return showText("Поле с номером пациента должно быть числом", 2);
+
+    if (Number(age) != age)
+        return showText("Поле с возрастом должно быть числом", 2);
+    
     startLoadingAnimation();
     
     return await api("getPatients", {
