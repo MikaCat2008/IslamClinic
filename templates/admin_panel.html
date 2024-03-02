@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block style_block %}
+    {{ super() }}
+
+    <link rel="stylesheet" href="static/css/admin-panel.css">
+    <link rel="stylesheet" href="static/css/menu.css">
+{% endblock %}
+
+{% block container_block %}
+    <div class="admin-panel">
+        <div class="admin-panel-body">
+            <div id="show-text"></div>
+            <div class="loading-animation">
+                <img src="static/media/loading.gif" alt="Loading" width="45px">
+            </div>
+
+            {% block content_block %} {% endblock %}
+        </div>
+
+        {% include 'menu.html' %}
+    </div>
+{% endblock %}

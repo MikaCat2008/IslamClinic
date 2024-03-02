@@ -1,0 +1,48 @@
+.control-buttons {
+    width: 100%;
+}
+
+.control-button-complex {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
+.control-button {
+    width: 95%;
+    
+    font-size: 16px;
+    text-align: center;
+
+    background-color: rgb(115 214 160);
+    border: 1px solid rgb(69 139 101);
+
+    margin: 2px auto;
+    padding: 1px 0px;
+
+    border-radius: 15px;
+
+    user-select: none;
+}
+
+.control-button:hover {
+    color: black;
+
+    background-color: rgb(59, 154, 102);
+}
+
+.control-button a {
+    display: block;
+
+    width: 100%;
+
+    color: rgb(21, 21, 21);
+
+    cursor: default;
+    text-decoration: none;
+}

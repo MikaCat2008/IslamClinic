@@ -1,0 +1,71 @@
+{% extends 'admin_panel.html' %}
+
+{% block content_block %}
+    <div class="header">
+        <input id="back" type="button" value="Назад">
+        <div class="title">
+            Форма добавления сотрудника
+        </div>
+    </div>
+
+    <div class="window">
+        <div class="main">
+            <div class="left">
+                <span>ФИО</span>
+                <span>Возраст</span>
+                <span>Пол</span>
+                <span>Оклад</span>
+                <span>Отделение</span>
+                <span>Специальность</span>
+            </div>
+            <div class="right">
+                <input id="employee-fullname" type="text" size="50">
+                <input id="employee-age" type="text">
+                <select id="employee-gender">
+                    <option value="">-</option>
+                    <option value="0">Женщина</option>
+                    <option value="1">Мужчина</option>
+                </select>
+                <input id="employee-salary" type="text">
+                <select id="employee-job-category">
+                    <option value="">-</option>
+                    <option value="0">Доктор</option>
+                </select>
+                <select id="employee-job-title">
+                    <option value="">-</option>
+                    <option value="0">Терапевт</option>
+                </select>
+            </div>
+        </div>
+        <div class="submit">
+            <input id="save" type="button" value="Сохранить">
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/employee.js"></script>
+    <script>
+        let backElement = document.querySelector("#back");
+
+        backElement.onclick = () => openPatients();
+
+        let saveElement = document.querySelector("#save");
+
+        let employeeFullnameElement = document.querySelector("#employee-fullname");
+        let employeeAgeElement = document.querySelector("#employee-age");
+        let employeeGenderElement = document.querySelector("#employee-gender");
+        let employeeSalaryElement = document.querySelector("#employee-salary");
+        let employeeJobCategoryElement = document.querySelector("#employee-job-category");
+        let employeeJobTitleElement = document.querySelector("#employee-job-title");
+
+        saveElement.onclick = () => createEmployee(
+            employeeFullnameElement.value,
+            employeeAgeElement.value,
+            employeeGenderElement.value,
+            employeeSalaryElement.value,
+            employeeJobCategoryElement.value,
+            employeeJobTitleElement.value
+        );
+    </script>
+{% endblock %}

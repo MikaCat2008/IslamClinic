@@ -1,0 +1,3 @@
+.data-pair:nth-child(2), .data-pair:nth-child(5) {
+    width: 200px;
+}

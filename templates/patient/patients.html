@@ -1,0 +1,106 @@
+{% extends 'admin_panel.html' %}
+
+{% block style_block %}
+    {{ super() }}
+
+    <link rel="stylesheet" href="static/css/patient.css">
+{% endblock %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Список пациентов
+        </div>
+        <input id="open-window-filters" type="button" value="Фильтры">
+    </div>
+
+    <div class="filters">
+        <div class="window window-right">
+            <span class="window-header">
+                Фильтры
+                <input id="close-window-filters" type="button" value="x">
+            </span>
+
+            <div class="main">
+                <div class="left">
+                    <span>Номер пациента</span>
+                    <span>ФИО</span>
+                    <span>Возраст</span>
+                    <span>Пол</span>
+                    <span>ФИО семейного врача</span>
+                </div>
+                <div class="right">
+                    <input id="patient-id" type="text"">
+                    <input id="patient-fullname" type="text" size="50">
+                    <input id="patient-age" type="text">
+                    <select id="patient-gender">
+                        <option value="">-</option>
+                        <option value="0">Женщина</option>
+                        <option value="1">Мужчина</option>
+                    </select>
+                    <input id="patient-family-doctor-fullname" type="text" size="50"></input>
+                </div>
+            </div>
+            <div class="submit">
+                <input id="search" type="button" value="Искать">
+            </div>
+        </div>
+    </div>
+    <div class="data-elements"></div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/patient.js"></script>
+    <script>
+        let filtersWindowElement = document.querySelector(".window");
+        let openWindowFiltersElement = document.querySelector("#open-window-filters")
+        let closeWindowFiltersElement = document.querySelector("#close-window-filters");
+
+        openWindowFiltersElement.onclick = () => openWindow(filtersWindowElement);
+        closeWindowFiltersElement.onclick = () => closeWindow(filtersWindowElement);
+
+        let dataElements = document.querySelector(".data-elements");
+        let searchElement = document.querySelector("#search");
+        let patientIdElement = document.querySelector("#patient-id");
+        let patientFullnameElement = document.querySelector("#patient-fullname");
+        let patientAgeElement = document.querySelector("#patient-age");
+        let patientGenderElement = document.querySelector("#patient-gender");
+        let patientFamilyDoctorFullnameElement = document.querySelector("#patient-family-doctor-fullname");
+
+        searchElement.onclick = () => {
+            getPatients(
+                patientIdElement.value,
+                patientFullnameElement.value,
+                patientAgeElement.value,
+                patientGenderElement.value,
+                patientFamilyDoctorFullnameElement.value,
+                
+                response => {
+                    if (response) {
+                        dataElements.innerHTML = "";
+                        stopLoadingAnimation();
+
+                        response.patients.forEach(patient => {
+                            let gender = patient.gender ? "Мужчина" : "Женщина";
+                            
+                            addPatient(
+                                dataElements,
+                                patient.id,
+                                patient.fullname,
+                                patient.age,
+                                gender,
+                                patient.familyDoctorFullname
+                            );
+                        });
+
+                        showText(`Найдено ${response.patients.length} пациентов`, 0);
+                    }
+                    else {
+                        showText("Произошла ошибка", 2);
+                    }
+                }
+            );
+        }
+        searchElement.click();
+    </script>
+{% endblock %}

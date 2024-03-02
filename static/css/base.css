@@ -1,0 +1,127 @@
+body {
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: monospace;
+
+    background-color: #d3d3d3;
+}
+
+.container {
+    position: absolute;
+
+    width: 90vw;
+    height: 90vh;
+
+    top: 5vh;
+    left: 5vw;
+
+    background-color: #d2d2d2;
+
+    border: 2px solid rgb(186, 186, 186);
+    border-radius: 20px;
+
+    box-shadow: 0 0 20px rgba(19, 19, 19, 0.5);
+}
+
+.loading-animation {
+    position: absolute;
+
+    top: 230px;
+    left: 280px;
+}
+
+.show-text-window {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+
+    width: 280px;
+    height: 90px;
+
+    top: -100px;
+    left: 0;
+    right: 0;
+
+    opacity: 0;
+
+    color: rgb(0, 0, 0);
+    background-color: rgb(115 214 160);
+
+    border: 2px solid rgb(69 139 101);
+    border-radius: 10px;
+
+    padding: 5px 10px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    transition: .8s;
+
+    z-index: 10;
+}
+
+.show-text-window span {
+    display: block;
+
+    width: 100%;
+
+    font-size: 20px;
+
+    text-align: center;
+}
+
+.show-text-window-success {
+    color: rgb(0, 0, 0)!important;
+    background-color: rgb(0, 163, 184)!important;
+
+    border: 2px solid rgb(0, 139, 139)!important;
+}
+
+.show-text-window-error {
+    color: rgb(255, 255, 255);
+    background-color: rgb(184, 0, 0)!important;
+
+    border: 2px solid rgb(139, 0, 0)!important;
+}
+
+.show-text-window-out {
+    top: 60px!important;
+
+    opacity: .9!important;
+
+    transition: .8s;
+}
+
+.error-element {
+    color: #bebebe;
+    background-color: rgb(184, 0, 0);
+
+    border: 2px solid rgb(88, 0, 0);
+}
+
+.change-element {
+    color: #d5d5d5;
+    background-color: rgb(0, 147, 184);
+
+    border: 2px solid rgb(0, 66, 88);
+}
+
+.delete-element {
+    width: 25px;
+
+    color: rgb(0, 0, 0);
+    background-color: red;
+
+    padding: 0px;
+
+    user-select: none;
+}
+
+.delete-element:hover {
+    background-color: rgb(214, 0, 0);
+}

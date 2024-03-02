@@ -1,0 +1,128 @@
+{% extends 'admin_panel.html' %}
+
+{% block style_block %}
+    {{ super() }}
+
+    <link rel="stylesheet" href="static/css/employee.css">
+{% endblock %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Список пациентов
+        </div>
+        <input id="open-window-filters" type="button" value="Фильтры">
+    </div>
+
+    <div class="filters">
+        <div class="window window-right">
+            <span class="window-header">
+                Фильтры
+                <input id="close-window-filters" type="button" value="x">
+            </span>
+
+            <div class="main">
+                <div class="left">
+                    <span>ID</span>
+                    <span>ФИО</span>
+                    <span>Возраст</span>
+                    <span>Пол</span>
+                    <span>Оклад</span>
+                    <span>Отделение</span>
+                    <span>Специальность</span>
+                </div>
+                <div class="right">
+                    <input id="employee-id" type="text"">
+                    <input id="employee-fullname" type="text" size="50">
+                    <input id="employee-age" type="text">
+                    <select id="employee-gender">
+                        <option value="">-</option>
+                        <option value="0">Женщина</option>
+                        <option value="1">Мужчина</option>
+                    </select>
+                    <input id="employee-salary" type="text">
+                    <select id="employee-job-category">
+                        <option value="">-</option>
+                        <option value="0">Доктор</option>
+                    </select>
+                    <select id="employee-job-title">
+                        <option value="">-</option>
+                        <option value="0">Терапевт</option>
+                    </select>
+                </div>
+            </div>
+            <div class="submit">
+                <input id="search" type="button" value="Искать">
+            </div>
+        </div>
+    </div>
+    <div class="data-elements"></div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/employee.js"></script>
+    <script>
+        let filtersWindowElement = document.querySelector(".window");
+        let openWindowFiltersElement = document.querySelector("#open-window-filters")
+        let closeWindowFiltersElement = document.querySelector("#close-window-filters");
+
+        openWindowFiltersElement.onclick = () => openWindow(filtersWindowElement);
+        closeWindowFiltersElement.onclick = () => closeWindow(filtersWindowElement);
+
+        let dataElements = document.querySelector(".data-elements");
+        let searchElement = document.querySelector("#search");
+        let employeeIdElement = document.querySelector("#employee-id");
+        let employeeFullnameElement = document.querySelector("#employee-fullname");
+        let employeeAgeElement = document.querySelector("#employee-age");
+        let employeeGenderElement = document.querySelector("#employee-gender");
+        let employeeSalaryElement = document.querySelector("#employee-salary");
+        let employeeJobCategorylement = document.querySelector("#employee-job-category");
+        let employeeJobTitleElement = document.querySelector("#employee-job-title");
+
+        searchElement.onclick = () => {
+            getEmployees(
+                employeeIdElement.value,
+                employeeFullnameElement.value,
+                employeeAgeElement.value,
+                employeeGenderElement.value,
+                employeeSalaryElement.value,
+                employeeJobCategorylement.value,
+                employeeJobTitleElement.value,
+                
+                response => {
+                    if (response) {
+                        dataElements.innerHTML = "";
+                        stopLoadingAnimation();
+
+                        response.employees.forEach(employee => {
+                            let gender = employee.gender ? "Мужчина" : "Женщина";
+                            let jobCategory = [
+                                "Доктор"
+                            ][employee.jobCategory];
+                            let jobTitle = [
+                                "Терапевт"
+                            ][employee.jobTitle];
+                            
+                            addEmployee(
+                                dataElements,
+                                employee.id,
+                                employee.fullname,
+                                employee.age,
+                                employee.salary,
+                                gender,
+                                jobCategory,
+                                jobTitle,
+                            );
+                        });
+
+                        showText(`Найдено ${response.employees.length} сотрудников`, 0);
+                    }
+                    else {
+                        showText("Произошла ошибка", 2);
+                    }
+                }
+            );
+        }
+        searchElement.click()
+    </script>
+{% endblock %}

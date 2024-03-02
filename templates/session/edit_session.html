@@ -1,0 +1,54 @@
+{% extends 'admin_panel.html' %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Информация о сеансе
+        </div>
+    </div>
+
+    <div class="window">
+        <div class="main">
+            <div class="left">
+                <span>Номер сеанса</span>
+                <span>ФИО пациента</span>
+                <span>ФИО доктора</span>
+                <span>Дата и время сеанса</span>
+            </div>
+            <div class="right">
+                <input id="session-id" type="text" value="{{ session.id }}" readonly>
+                <input id="patient-fullname" type="text" value="{{ session.patientFullname }}">
+                <input id="employee-fullname" type="text" value="{{ session.employeeFullname }}">
+                <input id="session-datetime" type="datetime-local">
+                </select>
+            </div>
+        </div>
+        <div class="submit">
+            <input id="save" type="button" value="Сохранить">
+            <input id="delete" type="button" value="Отменить">
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/session.js"></script>
+    <script>
+        let saveElement = document.querySelector("#save");
+        let deleteElement = document.querySelector("#delete");
+
+        let sessionIdElement = document.querySelector("#session-id");
+        let patientFullnameElement = document.querySelector("#patient-fullname");
+        let employeeFullnameElement = document.querySelector("#employee-fullname");
+        let sessionDatetimeElement = document.querySelector("#session-datetime");
+        
+        setDatetime(sessionDatetimeElement, new Date({{ session.datetimeTimestamp }} * 1000));
+
+        saveElement.onclick = () => editSession(
+            sessionIdElement.value,
+            patientFullnameElement.value,
+            employeeFullnameElement.value,
+            sessionDatetimeElement.value
+        );
+        deleteElement.onclick = () => deleteSession(sessionIdElement.value)
+    </script>
+{% endblock %}

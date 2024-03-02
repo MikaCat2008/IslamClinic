@@ -1,0 +1,310 @@
+.admin-panel {
+    display: flex;
+
+    height: 100%;
+    border-radius: 20px;
+}
+
+.admin-panel-menu {
+    width: 250px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: rgb(72, 180, 121);
+
+    border: 1px solid rgb(69 139 101);
+
+    border-top-right-radius: 20px ;
+    border-bottom-right-radius: 20px ;
+}
+
+.admin-panel-body {
+    width: 100%;
+
+    overflow-y: auto;
+
+    border-top-left-radius: 20px;
+}
+
+.header {
+    position: sticky;
+
+    display: flex;
+
+    top: 0px;
+
+    align-items: center;
+
+    background-color: rgb(115 214 160);
+    
+    border: 1px solid rgb(69 139 101);
+}
+
+.header input {
+    border: 1px solid rgb(69 139 101);
+}
+
+.title {
+    width: 100%;
+
+    font-size: 22px;
+    text-align: center;
+
+    color: #252525;
+}
+
+input, select {
+    color: rgb(43, 43, 43);
+    background-color: rgb(115 214 160);
+    
+    font-size: 16px;
+    text-align: center;
+
+    box-sizing: border-box;
+
+    font-family: monospace;
+    border-radius: 10px;
+
+    border: 0;
+    outline: 0;
+}
+
+input:hover {
+    background-color: rgb(83, 202, 137);
+
+    border: 1px solid rgb(69 139 101);
+}
+
+.window {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 515px;
+    min-height: 30px;
+
+    font-size: 18px;
+
+    background-color: #d2d2d2;
+
+    padding: 5px;
+    margin: 20px 0px 0px 20px;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
+    transition: .3s;
+}
+
+.window-center {
+    margin: 150px auto 0px auto;
+}
+
+.window-right {
+    margin-left: 0px;
+    margin-right: 20px;
+}
+
+.window-header {
+    font-size: 22px;
+}
+
+.window-header input {
+    position: absolute;
+
+    width: 35px;
+    height: 35px;
+
+    font-size: 22px;
+
+    color: white;
+    background-color: rgb(184, 0, 0);
+    border: 2px solid rgb(139, 0, 0);
+
+    top: -15px;
+    right: -15px;
+
+    border-radius: 100%;
+}
+
+.window-header input:hover {
+    background-color: rgb(176, 65, 65);
+}
+
+.filters {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+
+    margin: 10px 0px 20px 0px;
+}
+
+.main .left, .main .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0px 5px;
+}
+
+.main .left {
+    width: 230px;
+}
+
+.main .right {
+    width: 270px;
+}
+
+.main span {
+    display: block;
+
+    width: 100%;
+    height: 26px;
+    
+    color: rgb(0, 0, 0);
+    background-color: rgb(115 214 160);
+
+    box-sizing: border-box;
+
+    border: 2px solid rgb(69 139 101);
+    border-radius: 15px;
+
+    padding: 1px 5px;
+    margin-top: 7px;
+}
+
+.main input, .main select {
+    display: block;
+    
+    width: 100%;
+    height: 26px;
+    
+    color: rgb(0, 0, 0);
+    background-color: #dddddd;
+
+    padding: 0px;
+    margin-top: 7px;
+
+    border: 2px solid rgb(165, 165, 165);
+}
+
+.main input:hover, .main select:hover, .main input:read-only {
+    background-color: #d3d3d3;   
+}
+
+.submit {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.submit input {
+    width: 150px;
+    height: 30px;
+
+    font-size: 18px;
+}
+
+#save {
+    background-color: rgb(79, 198, 133);
+    border: 2px solid rgb(69 139 101);
+}
+
+#save:hover {
+    background-color: rgb(65, 176, 115);
+}
+
+#search {
+    background-color: rgb(198, 186, 79);
+    border: 2px solid rgb(139, 138, 69);
+}
+
+#search:hover {
+    background-color: rgb(176, 169, 65);
+}
+
+#delete {
+    color: white;
+
+    background-color: rgb(184, 0, 0);
+    border: 2px solid rgb(139, 0, 0);
+}
+
+#delete:hover {
+    background-color: rgb(176, 65, 65);
+}
+
+.data-elements {
+    font-size: 16px;
+
+    margin: 20px 0px 0px 10px;
+}
+
+.data-element {
+    display: flex;
+    align-items: flex-start;
+
+    width: 600px;
+    height: 85px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.data-pair {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+
+    text-align: center;
+
+    border-right: 1px solid rgb(153, 153, 153);
+
+    padding: 0px 5px;   
+}
+
+.data-pair span {
+    width: 100%;
+
+    margin-bottom: 5px;
+}
+
+.data-pair span:nth-child(1) {
+    border-bottom: 1px solid rgb(153, 153, 153);
+}
+
+.data-pair a {
+    background-color: none;
+
+    color: black;
+    font-size: 32px;
+    text-decoration: none;
+
+    border: 1px;
+    
+    transition: .5s;
+}
+
+.data-pair a:hover {
+    color: rgb(8, 132, 64);
+}
+
+#back {
+    margin-left: 10px;
+}
+
+#open-window-filters {
+    margin-right: 10px;
+}

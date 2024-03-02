@@ -1,0 +1,65 @@
+{% extends 'admin_panel.html' %}
+
+{% block content_block %}
+    <div class="header">
+        <input id="back" type="button" value="Назад">
+        <div class="title">
+            Информация о пациенте
+        </div>
+    </div>
+
+    <div class="window">
+        <div class="main">
+            <div class="left">
+                <span>Номер пациента</span>
+                <span>ФИО</span>
+                <span>Возраст</span>
+                <span>Пол</span>
+                <span>ФИО семейного врача</span>
+            </div>
+            <div class="right">
+                <input id="patient-id" type="text" value="{{ patient.id }}" readonly>
+                <input id="patient-fullname" type="text" value="{{ patient.fullname }}" size="50">
+                <input id="patient-age" type="text" value="{{ patient.age }}">
+                <select id="patient-gender">
+                    <option value="">-</option>
+                    <option value="0" {% if patient.gender == False %} selected {% endif %}>Женщина</option>
+                    <option value="1" {% if patient.gender == True %} selected {% endif %}>Мужчина</option>
+                </select>
+                <input id="patient-family-doctor-fullname" type="text" value="{{ patient.familyDoctorFullname }}">
+                </select>
+            </div>
+        </div>
+        <div class="submit">
+            <input id="save" type="button" value="Сохранить">
+            <input id="delete" type="button" value="Удалить">
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/patient.js"></script>
+    <script>
+        let backElement = document.querySelector("#back");
+
+        backElement.onclick = () => openPatients();
+
+        let saveElement = document.querySelector("#save");
+        let deleteElement = document.querySelector("#delete");
+
+        let patientIdElement = document.querySelector("#patient-id");
+        let patientFullnameElement = document.querySelector("#patient-fullname");
+        let patientAgeElement = document.querySelector("#patient-age");
+        let patientGenderElement = document.querySelector("#patient-gender");
+        let patientFamilyDoctorFullnameElement = document.querySelector("#patient-family-doctor-fullname");
+
+        saveElement.onclick = () => editPatient(
+            patientIdElement.value,
+            patientFullnameElement.value,
+            patientAgeElement.value,
+            patientGenderElement.value,
+            patientFamilyDoctorFullnameElement.value
+        );
+        deleteElement.onclick = () => deletePatient(patientIdElement.value)
+    </script>
+{% endblock %}

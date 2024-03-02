@@ -1,0 +1,92 @@
+{% extends 'admin_panel.html' %}
+
+{% block style_block %}
+    {{ super() }}
+
+    <link rel="stylesheet" href="static/css/session.css">
+{% endblock %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Расписание
+        </div>
+        <input id="open-window-filters" type="button" value="Фильтры">
+    </div>
+    <div class="filters">
+        <div class="window window-right">
+            <span class="window-header">
+                Фильтры
+                <input id="close-window-filters" type="button" value="x">
+            </span>
+
+            <div class="main">
+                <div class="left">
+                    <span>ФИО пациента</span>
+                    <span>ФИО доктора</span>
+                    <span>Дата</span>
+                </div>
+                <div class="right">
+                    <input id="patient-fullname" type="text">
+                    <input id="employee-fullname" type="text">
+                    <input id="session-date" type="date">
+                </div>
+            </div>
+            <div class="submit">
+                <input id="search" type="button" value="Искать">
+            </div>
+        </div>
+    </div>
+    <div id="schedules"></div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/session.js"></script>
+    <script>
+        let filtersWindowElement = document.querySelector(".window");
+        let openWindowFiltersElement = document.querySelector("#open-window-filters")
+        let closeWindowFiltersElement = document.querySelector("#close-window-filters");
+
+        openWindowFiltersElement.onclick = () => openWindow(filtersWindowElement);
+        closeWindowFiltersElement.onclick = () => closeWindow(filtersWindowElement);
+
+        let sessionDateElement = document.querySelector("#session-date");
+
+        setDate(sessionDateElement, new Date());
+
+        let schedulesElement = document.querySelector("#schedules");
+        let searchElement = document.querySelector("#search");
+        let sessionIdElement = document.querySelector("#session-id");
+        let patientFullnameElement = document.querySelector("#patient-fullname");
+        let employeeFullanameElement = document.querySelector("#employee-fullname");
+
+        searchElement.onclick = () => {
+            getSchedules(
+                patientFullnameElement.value,
+                employeeFullanameElement.value,
+                sessionDateElement.value,
+                
+                response => {
+                    if (response) {
+                        schedulesElement.innerHTML = "";
+                        stopLoadingAnimation();
+                        
+                        response.schedules.forEach(schedule => {                        
+                            addSchedule(
+                                schedulesElement,
+                                schedule.employeeFullname,
+                                schedule.sessions
+                            );
+                        });
+
+                        showText(`Найдено ${response.schedules.length} записей`, 0);
+                    }
+                    else {
+                        showText("Произошла ошибка", 2);
+                    }
+                }
+            );
+        }
+        searchElement.click();
+    </script>
+{% endblock %}

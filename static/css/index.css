@@ -1,0 +1,46 @@
+.control-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.control-block {
+    width: 330px;
+
+    border: 2px solid rgb(108, 108, 108);
+    border-radius: 10px;
+
+    margin-top: 20px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.control-block-title {
+    border-bottom: 2px solid rgb(83, 83, 83);
+
+    color: rgb(18, 18, 18);
+    background-color: rgb(115 214 160); 
+
+    font-size: 26px;
+    text-align: center;
+
+    padding: 3px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.control-block-body a {
+    color: rgb(38, 38, 38)!important;
+
+    text-decoration: none;
+
+    font-size: 20px;
+}
+
+.control-block-body li {
+    margin-top: 5px;
+}
+
+.control-block-body a:hover {
+    color: black!important;
+}

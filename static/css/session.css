@@ -1,0 +1,66 @@
+.schedule {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    width: 580px;
+    min-height: 65px;
+
+    margin: 20px 0px 0px 20px;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.employee-fullname {
+    font-size: 24px;
+
+    margin: 5px 0px 0px 5px;
+}
+
+.sessions {
+    display: flex;
+
+    font-size: 20px;
+
+    margin: 20px 0px 0px 5px;
+    padding-bottom: 10px;
+}
+
+.sessions div {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    margin-left: 10px;
+    padding: 0px 5px;
+}
+
+.sessions span  {
+    width: 100%;
+
+    border-top: 1px solid rgb(153, 153, 153);
+}
+
+.session-edit a {
+    background-color: none;
+
+    color: black;
+    text-decoration: none;
+
+    border: 1px;
+    
+    transition: .5s;
+}
+
+.session-number {
+    width: 20px;
+}
+
+.session-time {
+    width: 80px;
+}
+
+.session-patient-fullname {
+    width: 335px;
+}

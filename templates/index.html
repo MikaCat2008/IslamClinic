@@ -1,0 +1,51 @@
+{% extends 'admin_panel.html' %}
+
+{% block style_block %}
+    {{ super() }}
+
+    <link rel="stylesheet" href="static/css/index.css">
+{% endblock %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Админ панель Islam Clinic
+        </div>
+    </div>
+
+    <div class="control-blocks">
+        <div class="control-block">
+            <div class="control-block-title">
+                <span>Пациенты</span>
+            </div>
+            <div class="control-block-body">
+                <ul>
+                    <li><a href="/add-patient">Добавить пациента</a></li>
+                    <li><a href="/patients">Посмотреть список пациентов</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="control-block">
+            <div class="control-block-title">
+                <span>Персонал</span>
+            </div>
+            <div class="control-block-body">
+                <ul>
+                    <li><a href="/add-employee">Добавить сотрудника</a></li>
+                    <li><a href="/employees">Посмотреть список сотрудников</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="control-block">
+            <div class="control-block-title">
+                <span>Расписание</span>
+            </div>
+            <div class="control-block-body">
+                <ul>
+                    <li><a href="/add-session">Назначить сеанс</a></li>
+                    <li><a href="/schedule">Посмотреть расписание</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

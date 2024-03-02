@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block style_block %}
+    <link rel="stylesheet" href="static/css/admin-panel.css">
+    <link rel="stylesheet" href="static/css/menu.css">
+{% endblock %}
+
+{% block container_block %}
+    <div class="admin-panel">
+        <div class="admin-panel-body">
+            <div id="show-text">
+                <span></span>
+            </div>
+            
+            <div class="header">
+                <div class="title">
+                    Авторизация в админ панель Islam Clinic
+                </div>
+            </div>
+            
+            <div class="window window-center">
+                <div class="main">
+                    <div class="left">
+                        <span>Логин</span>
+                        <span>Пароль</span>
+                    </div>
+                    <div class="right">
+                        <input id="username" type="text">
+                        <input id="password" type="password">
+                    </div>
+                </div>
+                <div class="submit">
+                    <input id="submit" type="button" value="Войти">
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-panel-menu">
+            <div class="logo">
+                <img src="static/media/logo.png" alt="" width="120px">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/login.js"></script>
+    <script>
+        let submitElement = document.querySelector("#submit");
+        let usernameElement = document.querySelector("#username");
+        let passwordElement = document.querySelector("#password");
+
+        submitElement.onclick = () => login(
+            usernameElement.value,
+            passwordElement.value
+        );
+    </script>
+{% endblock %}

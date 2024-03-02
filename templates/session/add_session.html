@@ -1,0 +1,46 @@
+{% extends 'admin_panel.html' %}
+
+{% block content_block %}
+    <div class="header">
+        <div class="title">
+            Форма назначения сеанса
+        </div>
+    </div>
+
+    <div class="window">
+        <div class="main">
+            <div class="left">
+                <span>ФИО пациента</span>
+                <span>ФИО доктора</span>
+                <span>Дата и время сеанса</span>
+            </div>
+            <div class="right">
+                <input id="patient-fullname" type="text">
+                <input id="employee-fullname" type="text">
+                <input id="session-datetime" type="datetime-local">
+            </div>
+        </div>
+        <div class="submit">
+            <input id="save" type="button" value="Сохранить">
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="static/js/session.js"></script>
+    <script>
+        let saveElement = document.querySelector("#save");
+
+        let patientFullnameElement = document.querySelector("#patient-fullname");
+        let employeeFullnameElement = document.querySelector("#employee-fullname");
+        let sessionDatetimeElement = document.querySelector("#session-datetime");
+
+        setDatetime(sessionDatetimeElement, new Date());
+
+        saveElement.onclick = () => createSession(
+            patientFullnameElement.value,
+            employeeFullnameElement.value,
+            sessionDatetimeElement.value
+        );
+    </script>
+{% endblock %}
