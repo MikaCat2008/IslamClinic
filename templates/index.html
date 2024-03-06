@@ -9,41 +9,41 @@
 {% block content_block %}
     <div class="header">
         <div class="title">
-            Админ панель Islam Clinic
+            {{ texts.adminPanelTitle }}
         </div>
     </div>
 
     <div class="control-blocks">
         <div class="control-block">
             <div class="control-block-title">
-                <span>Пациенты</span>
+                <span>{{ texts.patientTitle }}</span>
             </div>
             <div class="control-block-body">
                 <ul>
-                    <li><a href="/add-patient">Добавить пациента</a></li>
-                    <li><a href="/patients">Посмотреть список пациентов</a></li>
+                    <li><a href="/add-patient">{{ texts.addPatient }}</a></li>
+                    <li><a href="/patients">{{ texts.patients }}</a></li>
                 </ul>
             </div>
         </div>
         <div class="control-block">
             <div class="control-block-title">
-                <span>Персонал</span>
+                <span>{{ texts.employeeTitle }}</span>
             </div>
             <div class="control-block-body">
                 <ul>
-                    <li><a href="/add-employee">Добавить сотрудника</a></li>
-                    <li><a href="/employees">Посмотреть список сотрудников</a></li>
+                    <li><a href="/add-employee">{{ texts.addEmployee }}</a></li>
+                    <li><a href="/employees">{{ texts.employees }}</a></li>
                 </ul>
             </div>
         </div>
         <div class="control-block">
             <div class="control-block-title">
-                <span>Расписание</span>
+                <span>{{ texts.sessionTitle }}</span>
             </div>
             <div class="control-block-body">
                 <ul>
-                    <li><a href="/add-session">Назначить сеанс</a></li>
-                    <li><a href="/schedule">Посмотреть расписание</a></li>
+                    <li><a href="/add-session">{{ texts.addSession }}</a></li>
+                    <li><a href="/schedule">{{ texts.schedules }}</a></li>
                 </ul>
             </div>
         </div>

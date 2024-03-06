@@ -8,12 +8,12 @@ def login() -> f.Response:
     if t.is_authed():
         return f.redirect("/")
 
-    return f.render_template("login.html")
+    return f.render_template("login.html", texts=t.texts)
 
 
 @t.route("/", auth=True)
 def index() -> f.Response:
-    return f.render_template("index.html")
+    return f.render_template("index.html", texts=t.texts)
 
 
 @t.route("/_login", method="POST", auth=False)
@@ -35,10 +35,14 @@ def _login() -> f.Response:
 
 
 @t.route("/exit", method="GET", auth=True)
-def exit()-> f.Response:
+def exit() -> f.Response:
     response = f.redirect("/")
 
     response.delete_cookie("username")
     response.delete_cookie("password")
     
     return response
+
+@t.route("/texts.js", method="GET", auth=False)
+def texts() -> f.Response:
+    return f"let texts = { t.texts };"

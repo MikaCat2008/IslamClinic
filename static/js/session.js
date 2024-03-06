@@ -12,8 +12,14 @@ function parseDatetime(datetime) {
 
 
 async function createSession(patientFullname, employeeFullname, datetime) {
+    if (patientFullname == "")
+        return showText(texts.patientFullnameEmpty, 2);
+
+    if (employeeFullname == "")
+        return showText(texts.employeeFullnameEmpty, 2);
+
     if (datetime == "")
-        return showText("Поле с датой и временем сеанса не должно быть пустым", 2);
+        return showText(texts.datetimeEmpty, 2);
 
     await api("createSession", {
         patientFullname: patientFullname,
@@ -21,16 +27,22 @@ async function createSession(patientFullname, employeeFullname, datetime) {
         datetimeTimestamp: parseDatetime(datetime).valueOf() / 1000
     }).then(response => {
         if (response)
-            showText("Сеанс успешно назначен", 1);
+            showText(texts.sessionAdded, 1);
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     });
 }
 
 
 async function editSession(id, patientFullname, employeeFullname, datetime) {
+    if (patientFullname == "")
+        return showText(texts.patientFullnameEmpty, 2);
+
+    if (employeeFullname == "")
+        return showText(texts.employeeFullnameEmpty, 2);
+    
     if (datetime == 0)
-        return showText("Поле с датой и временем сеанса не должно быть пустым", 2)
+        return showText(texts.datetimeEmpty, 2)
 
     await api("editSession", {
         id: id,
@@ -39,9 +51,9 @@ async function editSession(id, patientFullname, employeeFullname, datetime) {
         datetimeTimestamp: parseDatetime(datetime).valueOf() / 1000
     }).then(response => {
         if (response) 
-            showText("Информация о сеансе успешно обновлена", 1);
+            showText(texts.sessionEdited, 1);
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     });
 }
 
@@ -51,19 +63,19 @@ async function deleteSession(id) {
         id: id
     }).then(response => {
         if (response) {
-            showText("Сеанс успешно отменен", 1);
+            showText(texts.sessionDeleted, 1);
 
-            document.location.href = "/schedule";
+            openSchedules();
         }
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     });
 }
 
 
 async function getSchedules(patientFullname, employeeFullname, datetime, then) {
     if (datetime == "")
-        return showText("Поле с датой не должно быть пустым", 2);
+        return showText(texts.datetimeEmpty, 2);
 
     startLoadingAnimation();
 
@@ -86,13 +98,13 @@ function addSchedule(schedulesElement, employeeFullname, sessions) {
                 <span>№</span>
             </div>
             <div class="session-time">
-                <span>Время</span>
+                <span>${texts.time}</span>
             </div>
             <div class="session-patient-fullname">
-                <span>Пациент</span>
+                <span>${texts.patientFullname}</span>
             </div>
             <div class="session-edit">
-                <span>Ред.</span>
+                <span>${texts.edit}</span>
             </div>
         </div>
     `;
@@ -124,4 +136,9 @@ function addSchedule(schedulesElement, employeeFullname, sessions) {
     }
 
     schedulesElement.append(scheduleElement);
+}
+
+
+function openSchedules() {
+    document.location.href = "/schedules";
 }

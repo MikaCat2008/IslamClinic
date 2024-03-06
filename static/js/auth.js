@@ -6,7 +6,7 @@ async function login(username, password) {
         if (response && response.status) 
             openAdminPanel()
         else
-            showText("Неправильный логин или пароль", 2);
+            showText("Логин немесе құпия сөз қате", 2);
     })
 }
 

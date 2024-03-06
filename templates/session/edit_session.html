@@ -2,18 +2,19 @@
 
 {% block content_block %}
     <div class="header">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Информация о сеансе
+            {{ texts.editSession }}
         </div>
     </div>
 
     <div class="window">
         <div class="main">
             <div class="left">
-                <span>Номер сеанса</span>
-                <span>ФИО пациента</span>
-                <span>ФИО доктора</span>
-                <span>Дата и время сеанса</span>
+                <span>ID</span>
+                <span>{{ texts.patientFullname }}</span>
+                <span>{{ texts.employeeFullname }}</span>
+                <span>{{ texts.datetime }}</span>
             </div>
             <div class="right">
                 <input id="session-id" type="text" value="{{ session.id }}" readonly>
@@ -24,8 +25,8 @@
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
-            <input id="delete" type="button" value="Отменить">
+            <input id="save" type="button" value="{{ texts.save }}">
+            <input id="delete" type="button" value="{{ texts.delete }}">
         </div>
     </div>
 {% endblock %}
@@ -33,6 +34,10 @@
 {% block script_block %}
     <script src="static/js/session.js"></script>
     <script>
+        let backElement = document.querySelector("#back");
+
+        backElement.onclick = () => openSchedules();
+
         let saveElement = document.querySelector("#save");
         let deleteElement = document.querySelector("#delete");
 

@@ -9,22 +9,22 @@
 {% block content_block %}
     <div class="header">
         <div class="title">
-            Расписание
+            {{ texts.schedules }}
         </div>
-        <input id="open-window-filters" type="button" value="Фильтры">
+        <input id="open-window-filters" type="button" value="{{ texts.filters }}">
     </div>
     <div class="filters">
         <div class="window window-right">
             <span class="window-header">
-                Фильтры
+                {{ texts.filters }}
                 <input id="close-window-filters" type="button" value="x">
             </span>
 
             <div class="main">
                 <div class="left">
-                    <span>ФИО пациента</span>
-                    <span>ФИО доктора</span>
-                    <span>Дата</span>
+                    <span>{{ texts.patientFullname }}</span>
+                    <span>{{ texts.employeeFullname }}</span>
+                    <span>{{ texts.date }}</span>
                 </div>
                 <div class="right">
                     <input id="patient-fullname" type="text">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="submit">
-                <input id="search" type="button" value="Искать">
+                <input id="search" type="button" value="{{ texts.search }}">
             </div>
         </div>
     </div>
@@ -79,10 +79,10 @@
                             );
                         });
 
-                        showText(`Найдено ${response.schedules.length} записей`, 0);
+                        showText("{{ texts.foundSchedules }}".replace("{}", response.schedules.length), 0);
                     }
                     else {
-                        showText("Произошла ошибка", 2);
+                        showText("{{ texts.error }}", 2);
                     }
                 }
             );

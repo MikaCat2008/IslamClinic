@@ -1,27 +1,27 @@
 async function createEmployee(fullname, age, gender, salary, jobCategory, jobTitle) {
     if (fullname == "")
-        return showText("Поле с ФИО не должно быть пустым", 2);
+        return showText(texts.fullnameEmpty, 2);
 
     if (age == "")
-        return showText("Поле с возрастом не должно быть пустым", 2);
+        return showText(texts.ageEmpty, 2);
 
     if (Number(age) != age)
-        return showText("Поле с возрастом должно быть числом", 2);
+        return showText(texts.ageNumber, 2);
 
     if (gender == "")
-        return showText("Поле с полом не должно быть пустым", 2);
+        return showText(texts.genderEmpty, 2);
 
     if (salary == "")
-        return showText("Поле с окладом не должно быть пустым", 2);
+        return showText(texts.salaryEmpty, 2);
 
     if (Number(salary) != salary)
-        return showText("Поле с окладом должно быть числом", 2);
+        return showText(texts.salaryNumber, 2);
 
     if (jobCategory == "")
-        return showText("Поле с отделением не должно быть пустым", 2);
+        return showText(texts.jobCategoryEmpty, 2);
 
     if (jobTitle == "")
-        return showText("Поле со специальностью не должно быть пустым", 2);
+        return showText(texts.jobTitleEmpty, 2);
 
     await api("createEmployee", {
         fullname: fullname,
@@ -32,22 +32,22 @@ async function createEmployee(fullname, age, gender, salary, jobCategory, jobTit
         jobTitle: jobTitle
     }).then(response => {
         if (response) 
-            showText("Сотрудник успешно добавлен", 1);
+            showText(texts.employeeAdded, 1);
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     })
 }
 
 
 async function getEmployees(id, fullname, age, gender, salary, jobCategory, jobTitle, then) {
     if (Number(id) != id)
-        return showText("Поле с номером пациента должно быть числом", 2);
+        return showText(texts.idNumber, 2);
 
     if (Number(age) != age)
-        return showText("Поле с возрастом должно быть числом", 2);
+        return showText(texts.ageNumber, 2);
 
     if (Number(salary) != salary)
-        return showText("Поле с окладом должно быть числом", 2);
+        return showText(texts.salaryNumber, 2);
     
     startLoadingAnimation();
     
@@ -65,28 +65,28 @@ async function getEmployees(id, fullname, age, gender, salary, jobCategory, jobT
 
 async function editEmployee(id, fullname, age, gender, salary, jobCategory, jobTitle) {
     if (fullname == "")
-        return showText("Поле с ФИО не должно быть пустым", 2);
+        return showText(texts.fullnameEmpty, 2);
 
     if (age == "")
-        return showText("Поле с возрастом не должно быть пустым", 2);
+        return showText(texts.ageEmpty, 2);
 
     if (Number(age) != age)
-        return showText("Поле с возрастом должно быть числом", 2);
+        return showText(texts.ageNumber, 2);
 
     if (gender == "")
-        return showText("Поле с полом не должно быть пустым", 2);
+        return showText(texts.genderEmpty, 2);
 
     if (salary == "")
-        return showText("Поле с окладом не должно быть пустым", 2);
+        return showText(texts.salaryEmpty, 2);
 
     if (Number(salary) != salary)
-        return showText("Поле с окладом должно быть числом", 2);
+        return showText(texts.salaryNumber, 2);
 
     if (jobCategory == "")
-        return showText("Поле с отделением не должно быть пустым", 2);
+        return showText(texts.jobCategoryEmpty, 2);
 
     if (jobTitle == "")
-        return showText("Поле со специальностью не должно быть пустым", 2);
+        return showText(texts.jobTitleEmpty, 2);
 
     await api("editEmployee", {
         id: id,
@@ -98,9 +98,9 @@ async function editEmployee(id, fullname, age, gender, salary, jobCategory, jobT
         jobTitle: jobTitle
     }).then(response => {
         if (response) 
-            showText("Информация о сотруднике успешно обновлена", 1);
+            showText(texts.employeeEdited, 1);
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     })
 }
 
@@ -110,12 +110,12 @@ async function deleteEmployee(id) {
         id: id
     }).then(response => {
         if (response) {
-            showText("Сотрудник успешно удален", 1);
+            showText(texts.employeeDeleted, 1);
 
-            document.location.href = "/employees";
+            openEmployees();
         }
         else 
-            showText("Произошла ошибка", 2);
+            showText(texts.error, 2);
     })
 }
 
@@ -130,31 +130,31 @@ function addEmployee(dataElements, id, fullname, age, gender, salary, jobCategor
             <span>${id}</span>
         </div>
         <div class="data-pair">
-            <span>ФИО</span>
+            <span>${texts.fullname}</span>
             <span>${fullname}</span>
         </div>
         <div class="data-pair">
-            <span>Возраст</span>
+            <span>${texts.age}</span>
             <span>${age}</span>
         </div>
         <div class="data-pair">
-            <span>Пол</span>
+            <span>${texts.gender}</span>
             <span>${gender}</span>
         </div>
         <div class="data-pair">
-            <span>Оклад</span>
+            <span>${texts.salary}</span>
             <span>${salary}</span>
         </div>
         <div class="data-pair">
-            <span>Отделение</span>
+            <span>${texts.jobCategory}</span>
             <span>${jobCategory}</span>
         </div>
         <div class="data-pair">
-            <span>Специальность</span>
+            <span>${texts.jobTitle}</span>
             <span>${jobTitle}</span>
         </div>
         <div class="data-pair">
-            <span>Ред.</span>
+            <span>${texts.edit}</span>
             <a href="/edit-employee?employeeId=${id}">^</a>
         </div>
     `;
@@ -163,6 +163,32 @@ function addEmployee(dataElements, id, fullname, age, gender, salary, jobCategor
 }
 
 
-function openEmployee() {
+function setJobTitleOptions(employeeJobTitleElement, options) {
+    let innerHTML = `<option value="">-</option>`;
+
+    for (let i = 0; i < options.length; i++) {
+        let option = options[i]
+        
+        innerHTML += `<option value="${i}">${option}</option>`;
+    }
+
+    employeeJobTitleElement.innerHTML = innerHTML;
+}
+
+
+function onJobCategoryChange(employeeJobCategoryElement, employeeJobTitleElement) {
+    let value = employeeJobCategoryElement.value;
+    employeeJobTitleElement.value = "";
+
+    if (value == "") {
+        setJobTitleOptions(employeeJobTitleElement, []);
+    }
+    else {
+        setJobTitleOptions(employeeJobTitleElement, texts.jobTitles[value]);
+    }
+}
+
+
+function openEmployees() {
     document.location.href = "/employees";
 }

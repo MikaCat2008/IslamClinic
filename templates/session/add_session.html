@@ -2,17 +2,18 @@
 
 {% block content_block %}
     <div class="header">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Форма назначения сеанса
+            {{ texts.addSession }}
         </div>
     </div>
 
     <div class="window">
         <div class="main">
             <div class="left">
-                <span>ФИО пациента</span>
-                <span>ФИО доктора</span>
-                <span>Дата и время сеанса</span>
+                <span>{{ texts.patientFullname }}</span>
+                <span>{{ texts.employeeFullname }}</span>
+                <span>{{ texts.datetime }}</span>
             </div>
             <div class="right">
                 <input id="patient-fullname" type="text">
@@ -21,7 +22,7 @@
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
+            <input id="save" type="button" value="{{ texts.save }}">
         </div>
     </div>
 {% endblock %}
@@ -29,6 +30,10 @@
 {% block script_block %}
     <script src="static/js/session.js"></script>
     <script>
+        let backElement = document.querySelector("#back");
+
+        backElement.onclick = () => openSchedules();
+
         let saveElement = document.querySelector("#save");
 
         let patientFullnameElement = document.querySelector("#patient-fullname");

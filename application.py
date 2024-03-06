@@ -9,7 +9,7 @@ from database import Database
 
 class Application:
     def __init__(self, database_path: str) -> None:
-        self.database = Database(database_path)
+        self.database = Database(database_path) 
         Model.database = self.database
 
         self.controller = Controller()

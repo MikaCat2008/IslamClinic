@@ -2,33 +2,33 @@
 
 {% block content_block %}
     <div class="header">
-        <input id="back" type="button" value="Назад">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Форма добавления пациента
+            {{ texts.addPatient }}
         </div>
     </div>
 
     <div class="window">
         <div class="main">
             <div class="left">
-                <span>ФИО</span>
-                <span>Возраст</span>
-                <span>Пол</span>
-                <span>ФИО семейного врача</span>
+                <span>{{ texts.fullname }}</span>
+                <span>{{ texts.age }}</span>
+                <span>{{ texts.gender }}</span>
+                <span>{{ texts.familyDoctor }}</span>
             </div>
             <div class="right">
                 <input id="patient-fullname" type="text" size="50">
                 <input id="patient-age" type="text">
                 <select id="patient-gender">
                     <option value="">-</option>
-                    <option value="0">Женщина</option>
-                    <option value="1">Мужчина</option>
+                    <option value="0">{{ texts.woman }}</option>
+                    <option value="1">{{ texts.man }}</option>
                 </select>
                 <input id="patient-family-doctor-fullname" type="text">
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
+            <input id="save" type="button" value="{{ texts.save }}">
         </div>
     </div>
 {% endblock %}

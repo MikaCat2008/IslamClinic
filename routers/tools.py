@@ -3,6 +3,8 @@ from functools import wraps
 
 import flask as f
 
+from texts import texts
+
 LOGIN_USERNAME = "Admin"
 LOGIN_PASSWORD = "Root"
 

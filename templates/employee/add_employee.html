@@ -2,43 +2,45 @@
 
 {% block content_block %}
     <div class="header">
-        <input id="back" type="button" value="Назад">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Форма добавления сотрудника
+            {{ texts.addEmployee }}
         </div>
     </div>
 
     <div class="window">
         <div class="main">
             <div class="left">
-                <span>ФИО</span>
-                <span>Возраст</span>
-                <span>Пол</span>
-                <span>Оклад</span>
-                <span>Отделение</span>
-                <span>Специальность</span>
+                <span>{{ texts.fullname }}</span>
+                <span>{{ texts.age }}</span>
+                <span>{{ texts.gender }}</span>
+                <span>{{ texts.salary }}</span>
+                <span>{{ texts.jobCategory }}</span>
+                <span>{{ texts.jobTitle }}</span>
             </div>
             <div class="right">
                 <input id="employee-fullname" type="text" size="50">
                 <input id="employee-age" type="text">
                 <select id="employee-gender">
                     <option value="">-</option>
-                    <option value="0">Женщина</option>
-                    <option value="1">Мужчина</option>
+                    <option value="0">{{ texts.woman }}</option>
+                    <option value="1">{{ texts.man }}</option>
                 </select>
                 <input id="employee-salary" type="text">
                 <select id="employee-job-category">
                     <option value="">-</option>
-                    <option value="0">Доктор</option>
+
+                    {% for jobCategory in texts.jobCategories %}
+                        <option value="{{ loop.index }}">{{ jobCategory }}</option>
+                    {% endfor %}
                 </select>
                 <select id="employee-job-title">
                     <option value="">-</option>
-                    <option value="0">Терапевт</option>
                 </select>
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
+            <input id="save" type="button" value="{{ texts.save }}">
         </div>
     </div>
 {% endblock %}
@@ -48,7 +50,7 @@
     <script>
         let backElement = document.querySelector("#back");
 
-        backElement.onclick = () => openPatients();
+        backElement.onclick = () => openEmployees();
 
         let saveElement = document.querySelector("#save");
 
@@ -66,6 +68,9 @@
             employeeSalaryElement.value,
             employeeJobCategoryElement.value,
             employeeJobTitleElement.value
+        );
+        employeeJobCategoryElement.onchange = () => onJobCategoryChange(
+            employeeJobCategoryElement, employeeJobTitleElement
         );
     </script>
 {% endblock %}

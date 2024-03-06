@@ -9,27 +9,27 @@
 {% block content_block %}
     <div class="header">
         <div class="title">
-            Список пациентов
+            {{ texts.employees }}
         </div>
-        <input id="open-window-filters" type="button" value="Фильтры">
+        <input id="open-window-filters" type="button" value="{{ texts.filters }}">
     </div>
 
     <div class="filters">
         <div class="window window-right">
             <span class="window-header">
-                Фильтры
+                {{ texts.filters }}
                 <input id="close-window-filters" type="button" value="x">
             </span>
 
             <div class="main">
                 <div class="left">
                     <span>ID</span>
-                    <span>ФИО</span>
-                    <span>Возраст</span>
-                    <span>Пол</span>
-                    <span>Оклад</span>
-                    <span>Отделение</span>
-                    <span>Специальность</span>
+                    <span>{{ texts.fullname }}</span>
+                    <span>{{ texts.age }}</span>
+                    <span>{{ texts.gender }}</span>
+                    <span>{{ texts.salary }}</span>
+                    <span>{{ texts.jobCategory }}</span>
+                    <span>{{ texts.jobTitle }}</span>
                 </div>
                 <div class="right">
                     <input id="employee-id" type="text"">
@@ -37,22 +37,24 @@
                     <input id="employee-age" type="text">
                     <select id="employee-gender">
                         <option value="">-</option>
-                        <option value="0">Женщина</option>
-                        <option value="1">Мужчина</option>
+                        <option value="0">{{ texts.woman }}</option>
+                        <option value="1">{{ texts.man }}</option>
                     </select>
                     <input id="employee-salary" type="text">
                     <select id="employee-job-category">
                         <option value="">-</option>
-                        <option value="0">Доктор</option>
+                        
+                        {% for jobCategory in texts.jobCategories %}
+                            <option value="{{ loop.index }}">{{ jobCategory }}</option>
+                        {% endfor %}
                     </select>
                     <select id="employee-job-title">
                         <option value="">-</option>
-                        <option value="0">Терапевт</option>
                     </select>
                 </div>
             </div>
             <div class="submit">
-                <input id="search" type="button" value="Искать">
+                <input id="search" type="button" value="{{ texts.search }}">
             </div>
         </div>
     </div>
@@ -76,7 +78,7 @@
         let employeeAgeElement = document.querySelector("#employee-age");
         let employeeGenderElement = document.querySelector("#employee-gender");
         let employeeSalaryElement = document.querySelector("#employee-salary");
-        let employeeJobCategorylement = document.querySelector("#employee-job-category");
+        let employeeJobCategoryElement = document.querySelector("#employee-job-category");
         let employeeJobTitleElement = document.querySelector("#employee-job-title");
 
         searchElement.onclick = () => {
@@ -86,7 +88,7 @@
                 employeeAgeElement.value,
                 employeeGenderElement.value,
                 employeeSalaryElement.value,
-                employeeJobCategorylement.value,
+                employeeJobCategoryElement.value,
                 employeeJobTitleElement.value,
                 
                 response => {
@@ -95,34 +97,35 @@
                         stopLoadingAnimation();
 
                         response.employees.forEach(employee => {
-                            let gender = employee.gender ? "Мужчина" : "Женщина";
-                            let jobCategory = [
-                                "Доктор"
-                            ][employee.jobCategory];
-                            let jobTitle = [
-                                "Терапевт"
-                            ][employee.jobTitle];
+                            let gender = employee.gender ? "{{ texts.man }}" : "{{ texts.woman }}";
+                            let jobCategory = texts.jobCategories[employee.jobCategory];
+                            let jobTitle = texts.jobTitles[employee.jobCategory][employee.jobTitle];
                             
                             addEmployee(
                                 dataElements,
                                 employee.id,
                                 employee.fullname,
                                 employee.age,
-                                employee.salary,
                                 gender,
+                                employee.salary,
                                 jobCategory,
                                 jobTitle,
                             );
                         });
 
-                        showText(`Найдено ${response.employees.length} сотрудников`, 0);
+                        showText("{{ texts.foundEmployees }}".replace("{}", response.employees.length), 0);
                     }
                     else {
-                        showText("Произошла ошибка", 2);
+                        showText("{{ texts.error }}", 2);
                     }
                 }
             );
         }
+
+        employeeJobCategoryElement.onchange = () => onJobCategoryChange(
+            employeeJobCategoryElement, employeeJobTitleElement
+        );
+
         searchElement.click()
     </script>
 {% endblock %}

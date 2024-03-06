@@ -9,25 +9,25 @@
 {% block content_block %}
     <div class="header">
         <div class="title">
-            Список пациентов
+            {{ texts.patients }}
         </div>
-        <input id="open-window-filters" type="button" value="Фильтры">
+        <input id="open-window-filters" type="button" value="{{ texts.filters }}">
     </div>
 
     <div class="filters">
         <div class="window window-right">
             <span class="window-header">
-                Фильтры
+                {{ texts.filters }}
                 <input id="close-window-filters" type="button" value="x">
             </span>
 
             <div class="main">
                 <div class="left">
-                    <span>Номер пациента</span>
-                    <span>ФИО</span>
-                    <span>Возраст</span>
-                    <span>Пол</span>
-                    <span>ФИО семейного врача</span>
+                    <span>ID</span>
+                    <span>{{ texts.fullname }}</span>
+                    <span>{{ texts.age }}</span>
+                    <span>{{ texts.gender }}</span>
+                    <span>{{ texts.familyDoctor }}</span>
                 </div>
                 <div class="right">
                     <input id="patient-id" type="text"">
@@ -35,14 +35,14 @@
                     <input id="patient-age" type="text">
                     <select id="patient-gender">
                         <option value="">-</option>
-                        <option value="0">Женщина</option>
-                        <option value="1">Мужчина</option>
+                        <option value="0">{{ texts.woman }}</option>
+                        <option value="1">{{ texts.man }}</option>
                     </select>
                     <input id="patient-family-doctor-fullname" type="text" size="50"></input>
                 </div>
             </div>
             <div class="submit">
-                <input id="search" type="button" value="Искать">
+                <input id="search" type="button" value="{{ texts.search }}">
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
                         stopLoadingAnimation();
 
                         response.patients.forEach(patient => {
-                            let gender = patient.gender ? "Мужчина" : "Женщина";
+                            let gender = patient.gender ? "{{ texts.man }}" : "{{ texts.woman }}";
                             
                             addPatient(
                                 dataElements,
@@ -93,10 +93,10 @@
                             );
                         });
 
-                        showText(`Найдено ${response.patients.length} пациентов`, 0);
+                        showText("{{ texts.foundPatients }}".replace("{}", response.patients.length), 0);
                     }
                     else {
-                        showText("Произошла ошибка", 2);
+                        showText("{{ texts.error }}", 2);
                     }
                 }
             );

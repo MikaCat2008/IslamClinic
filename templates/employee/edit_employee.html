@@ -2,9 +2,9 @@
 
 {% block content_block %}
     <div class="header">
-        <input id="back" type="button" value="Назад">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Информация о сотруднике
+            {{ texts.editEmployee }}
         </div>
     </div>
 
@@ -12,12 +12,12 @@
         <div class="main">
             <div class="left">
                 <span>ID</span>
-                <span>ФИО</span>
-                <span>Возраст</span>
-                <span>Пол</span>
-                <span>Оклад</span>
-                <span>Отделение</span>
-                <span>Специальность</span>
+                <span>{{ texts.fullname }}</span>
+                <span>{{ texts.age }}</span>
+                <span>{{ texts.gender }}</span>
+                <span>{{ texts.salary }}</span>
+                <span>{{ texts.jobCategory }}</span>
+                <span>{{ texts.jobTitle }}</span>
             </div>
             <div class="right">
                 <input id="employee-id" type="text" value="{{ employee.id }}" readonly>
@@ -25,23 +25,25 @@
                 <input id="employee-age" type="text" value="{{ employee.age }}">
                 <select id="employee-gender">
                     <option value="">-</option>
-                    <option value="0" {% if employee.gender == False %} selected {% endif %}>Женщина</option>
-                    <option value="1" {% if employee.gender == True %} selected {% endif %}>Мужчина</option>
+                    <option value="0" {% if employee.gender == False %} selected {% endif %}>{{ texts.woman }}</option>
+                    <option value="1" {% if employee.gender == True %} selected {% endif %}>{{ texts.man }}</option>
                 </select>
                 <input id="employee-salary" type="text" value="{{ employee.salary }}">
                 <select id="employee-job-category">
                     <option value="">-</option>
-                    <option value="0" {% if employee.jobCategory == 0 %} selected {% endif %}>Доктор</option>
+
+                    {% for jobCategory in texts.jobCategories %}
+                        <option value="{{ loop.index }}">{{ jobCategory }}</option>
+                    {% endfor %}
                 </select>
                 <select id="employee-job-title">
                     <option value="">-</option>
-                    <option value="0" {% if employee.jobTitle == 0 %} selected {% endif %}>Терапевт</option>
                 </select>
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
-            <input id="delete" type="button" value="Удалить">
+            <input id="save" type="button" value="{{ texts.save }}">
+            <input id="delete" type="button" value="{{ texts.delete }}">
         </div>
     </div>
 {% endblock %}
@@ -75,6 +77,14 @@
         );
         deleteElement.onclick = () => deleteEmployee(
             employeeIdElement.value
-        )
-    </script>
+        );
+        employeeJobCategoryElement.onchange = () => onJobCategoryChange(
+            employeeJobCategoryElement, employeeJobTitleElement
+        );
+        employeeJobCategoryElement.value = {{ employee.jobCategory }};
+        employeeJobCategoryElement.dispatchEvent(new Event("change"));
+
+        employeeJobTitleElement.value = {{ employee.jobTitle }};
+        employeeJobTitleElement.dispatchEvent(new Event("change"));
+</script>
 {% endblock %}

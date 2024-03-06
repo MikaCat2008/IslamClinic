@@ -81,5 +81,5 @@ async function api(method, data) {
     return await postData("/api", {
         method: method,
         data: data
-    }).catch(response => showText("Произошла ошибка", 2))
+    }).catch(response => showText("Қате орын алды", 2))
 }

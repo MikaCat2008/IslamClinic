@@ -2,20 +2,20 @@
 
 {% block content_block %}
     <div class="header">
-        <input id="back" type="button" value="Назад">
+        <input id="back" type="button" value="{{ texts.back }}">
         <div class="title">
-            Информация о пациенте
+            {{ texts.editPatient }}
         </div>
     </div>
 
     <div class="window">
         <div class="main">
             <div class="left">
-                <span>Номер пациента</span>
-                <span>ФИО</span>
-                <span>Возраст</span>
-                <span>Пол</span>
-                <span>ФИО семейного врача</span>
+                <span>ID</span>
+                <span>{{ texts.fullname }}</span>
+                <span>{{ texts.age }}</span>
+                <span>{{ texts.gender }}</span>
+                <span>{{ texts.familyDoctor }}</span>
             </div>
             <div class="right">
                 <input id="patient-id" type="text" value="{{ patient.id }}" readonly>
@@ -23,16 +23,16 @@
                 <input id="patient-age" type="text" value="{{ patient.age }}">
                 <select id="patient-gender">
                     <option value="">-</option>
-                    <option value="0" {% if patient.gender == False %} selected {% endif %}>Женщина</option>
-                    <option value="1" {% if patient.gender == True %} selected {% endif %}>Мужчина</option>
+                    <option value="0" {% if patient.gender == False %} selected {% endif %}>{{ texts.woman }}</option>
+                    <option value="1" {% if patient.gender == True %} selected {% endif %}>{{ texts.man }}</option>
                 </select>
                 <input id="patient-family-doctor-fullname" type="text" value="{{ patient.familyDoctorFullname }}">
                 </select>
             </div>
         </div>
         <div class="submit">
-            <input id="save" type="button" value="Сохранить">
-            <input id="delete" type="button" value="Удалить">
+            <input id="save" type="button" value="{{ texts.save }}">
+            <input id="delete" type="button" value="{{ texts.delete }}">
         </div>
     </div>
 {% endblock %}

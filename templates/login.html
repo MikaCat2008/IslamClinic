@@ -14,15 +14,15 @@
             
             <div class="header">
                 <div class="title">
-                    Авторизация в админ панель Islam Clinic
+                    {{ texts.adminPanelAuthTitle }}
                 </div>
             </div>
             
             <div class="window window-center">
                 <div class="main">
                     <div class="left">
-                        <span>Логин</span>
-                        <span>Пароль</span>
+                        <span>{{ texts.login }}</span>
+                        <span>{{ texts.password }}</span>
                     </div>
                     <div class="right">
                         <input id="username" type="text">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input id="save" type="button" value="Войти">
+                    <input id="save" type="button" value="{{ texts.loginSave }}">
                 </div>
             </div>
         </div>
