@@ -202,7 +202,7 @@ class SessionCase(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    application = Application("database/database.db")
+    application = Application("database/test_database.db")
     application.reset()
 
     controller = application.controller
