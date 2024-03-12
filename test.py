@@ -1,4 +1,4 @@
-import unittest
+import os, unittest
 
 from models import PatientModel, EmployeeModel, SessionModel
 
@@ -202,7 +202,7 @@ class SessionCase(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    application = Application("database/test_database.db")
+    application = Application("test_database.db")
     application.reset()
 
     controller = application.controller
@@ -212,3 +212,5 @@ if __name__ == "__main__":
     session = controller.session
 
     unittest.main()
+
+    os.remove("test_database.db")
