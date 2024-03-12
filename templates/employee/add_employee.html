@@ -31,7 +31,7 @@
                     <option value="">-</option>
 
                     {% for jobCategory in texts.jobCategories %}
-                        <option value="{{ loop.index }}">{{ jobCategory }}</option>
+                        <option value="{{ loop.index - 1 }}">{{ jobCategory }}</option>
                     {% endfor %}
                 </select>
                 <select id="employee-job-title">
