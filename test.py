@@ -212,5 +212,3 @@ if __name__ == "__main__":
     session = controller.session
 
     unittest.main()
-
-    os.remove("test_database.db")
